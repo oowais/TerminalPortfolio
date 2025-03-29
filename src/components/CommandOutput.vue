@@ -79,10 +79,21 @@ defineProps<{
       <div class="section-title">Work Experience</div>
       <div v-for="(job, index) in output.content" :key="index" class="job-item">
         <div class="job-header">
-          <div class="job-title">{{ job.title }} at {{ job.company }}</div>
-          <div class="job-period">{{ job.period }}</div>
+          <div class="job-title">{{ job.position }}</div>
+          <div class="job-company">
+            <a
+              v-if="job.website"
+              :href="job.website"
+              target="_blank"
+              class="company-link"
+            >
+              {{ job.company }}
+              <i class="fas fa-external-link-alt"></i>
+            </a>
+            <span v-else>{{ job.company }}</span>
+          </div>
+          <div class="job-duration">{{ job.duration }}</div>
         </div>
-        <div class="job-description">{{ job.description }}</div>
         <ul class="job-responsibilities">
           <li
             v-for="(responsibility, rIndex) in job.responsibilities"
@@ -125,7 +136,31 @@ defineProps<{
 
     <div v-else-if="output.type === 'education'" class="education-content">
       <div class="section-title">Education</div>
-      <div v-html="output.content"></div>
+      <div
+        v-for="(edu, index) in output.content"
+        :key="index"
+        class="education-item"
+      >
+        <div class="education-header">
+          <div class="education-degree">{{ edu.degree }}</div>
+          <div class="education-institution">
+            <a
+              v-if="edu.website"
+              :href="edu.website"
+              target="_blank"
+              class="institution-link"
+            >
+              {{ edu.institution }}
+              <i class="fas fa-external-link-alt"></i>
+            </a>
+            <span v-else>{{ edu.institution }}</span>
+          </div>
+        </div>
+        <div class="education-duration">{{ edu.duration }}</div>
+        <div v-if="edu.description" class="education-description">
+          {{ edu.description }}
+        </div>
+      </div>
     </div>
 
     <div v-else v-html="output.content"></div>
@@ -271,30 +306,53 @@ defineProps<{
 }
 
 .job-header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 8px;
+  margin-bottom: 1rem;
 }
 
 .job-title {
-  color: #8be9fd;
+  color: #00ff00;
+  font-size: 1.2rem;
   font-weight: bold;
+  margin-bottom: 0.25rem;
 }
 
-.job-period {
-  color: #ffb86c;
+.job-company {
+  color: #888;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
 }
 
-.job-description {
-  margin-bottom: 10px;
+.company-link {
+  color: #00ff00;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.company-link:hover {
+  color: #00cc00;
+}
+
+.job-duration {
+  color: #888;
+  font-size: 0.9rem;
 }
 
 .job-responsibilities {
-  padding-left: 20px;
+  margin: 0;
+  padding-left: 1.5rem;
+  color: #ddd;
 }
 
 .job-responsibilities li {
-  margin-bottom: 5px;
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+.job-responsibilities li:last-child {
+  margin-bottom: 0;
 }
 
 /* About styling */
@@ -380,5 +438,53 @@ defineProps<{
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1.5rem;
   margin-top: 1rem;
+}
+
+/* Education styling */
+.education-item {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px dashed #44475a;
+}
+
+.education-header {
+  margin-bottom: 0.5rem;
+}
+
+.education-degree {
+  color: #00ff00;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.education-institution {
+  color: #888;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.institution-link {
+  color: #00ff00;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.institution-link:hover {
+  color: #00cc00;
+}
+
+.education-duration {
+  color: #888;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.education-description {
+  color: #ddd;
+  line-height: 1.5;
 }
 </style>

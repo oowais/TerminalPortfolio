@@ -170,10 +170,12 @@ export const useTerminalStore = defineStore("terminal", () => {
     }
 
     const output = executeCommand(normalizedCmd);
-    history.value.push({
-      command: cmd,
-      output: output,
-    });
+    if (normalizedCmd !== "") {
+      history.value.push({
+        command: cmd,
+        output: output,
+      });
+    }
 
     currentCommand.value = "";
     historyIndex.value = -1;
