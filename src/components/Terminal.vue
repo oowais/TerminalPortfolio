@@ -209,9 +209,9 @@ onUnmounted(() => {
 <style>
 .terminal {
   width: 100%;
-  max-width: 900px;
+  max-width: 950px;
   height: 80vh;
-  max-height: 600px;
+  max-height: 700px;
   background-color: #282a36;
   border-radius: 6px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);

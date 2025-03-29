@@ -18,19 +18,18 @@ defineProps<{
   <div class="project-card">
     <div class="project-header">
       <h3 class="project-title">{{ project.name }}</h3>
-      <div class="project-meta">
-        <span class="meta-item"
-          ><i class="fas fa-users"></i> {{ project.teamSize }} members</span
-        >
-        <span class="meta-item"
-          ><i class="fas fa-clock"></i> {{ project.duration }}</span
-        >
+    </div>
+    <div class="project-meta">
+      <div class="meta-item">
+        <i class="fas fa-users"></i> Team size: {{ project.teamSize }}
+      </div>
+      <div class="meta-item">
+        <i class="fas fa-clock"></i> {{ project.duration }}
       </div>
     </div>
     <div class="project-content">
       <p class="project-description">{{ project.description }}</p>
       <div class="project-tech">
-        <div class="tech-label">Technologies:</div>
         <div class="tech-tags">
           <span
             v-for="tech in project.technologies"
@@ -60,6 +59,9 @@ defineProps<{
   padding: 1.5rem;
   margin-bottom: 1.5rem;
   transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
 }
 
 .project-card:hover {
@@ -74,21 +76,22 @@ defineProps<{
 
 .project-title {
   color: #00ff00;
-  margin: 0 0 0.5rem 0;
+  margin: 0;
   font-size: 1.2rem;
 }
 
 .project-meta {
   display: flex;
-  gap: 1rem;
+  gap: 2rem;
   color: #888;
   font-size: 0.9rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .meta-item {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
 }
 
 .project-description {
@@ -99,12 +102,6 @@ defineProps<{
 
 .project-tech {
   margin-bottom: 1rem;
-}
-
-.tech-label {
-  color: #888;
-  margin-bottom: 0.5rem;
-  font-size: 0.9rem;
 }
 
 .tech-tags {
@@ -121,9 +118,16 @@ defineProps<{
   font-size: 0.9rem;
 }
 
+.project-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
 .project-links {
   display: flex;
   gap: 1rem;
+  margin-top: auto;
 }
 
 .project-link {
