@@ -36,6 +36,15 @@ export const useTerminalStore = defineStore("terminal", () => {
   let focusFunction: (() => void) | null = null;
   let cursorInterval: number | null = null;
 
+  // Stop cursor blinking and hide cursor
+  function stopCursorBlink(): void {
+    if (cursorInterval) {
+      clearInterval(cursorInterval);
+      cursorInterval = null;
+    }
+    cursorVisible.value = false;
+  }
+
   // Start cursor blinking with a persistent interval
   function startCursorBlink(): void {
     // Clear any existing interval to prevent duplicates
@@ -51,9 +60,6 @@ export const useTerminalStore = defineStore("terminal", () => {
       cursorVisible.value = !cursorVisible.value;
     }, 500);
   }
-
-  // Start the cursor blinking right away
-  startCursorBlink();
 
   // Command execution
   function executeCommand(cmd: string): void {
@@ -236,6 +242,11 @@ export const useTerminalStore = defineStore("terminal", () => {
     searchQuery.value = "";
     searchResults.value = [];
     selectedSearchResult.value = -1;
+    // Ensure command line gets focus when search mode is exited
+    if (focusFunction) {
+      focusFunction();
+    }
+    startCursorBlink();
   }
 
   // Use selected search result
@@ -262,6 +273,7 @@ export const useTerminalStore = defineStore("terminal", () => {
     focusInput,
     setFocusFunction,
     startCursorBlink,
+    stopCursorBlink,
     updateCursorPosition,
     addToHistory,
     searchMode,

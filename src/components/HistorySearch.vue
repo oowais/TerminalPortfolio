@@ -1,57 +1,81 @@
 <script setup>
-import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
-import { useTerminalStore } from '../stores/terminal'
+import { ref, watch, onMounted, onBeforeUnmount, nextTick } from "vue";
+import { useTerminalStore } from "../stores/terminal";
 
-const terminalStore = useTerminalStore()
-const searchInputRef = ref(null)
+const terminalStore = useTerminalStore();
+const searchInputRef = ref(null);
 
 // Handle key presses during search
 const handleKeyDown = (e) => {
-  if (e.key === 'Escape') {
-    e.preventDefault()
-    terminalStore.exitSearchMode()
-  } else if (e.key === 'Enter') {
-    e.preventDefault()
-    terminalStore.useSearchResult()
-  } else if (e.key === 'ArrowUp') {
-    e.preventDefault()
-    navigateResults(-1) // Move up in results
-  } else if (e.key === 'ArrowDown') {
-    e.preventDefault()
-    navigateResults(1) // Move down in results
+  if (e.key === "Escape") {
+    e.preventDefault();
+    terminalStore.exitSearchMode();
+  } else if (e.key === "Enter") {
+    e.preventDefault();
+    terminalStore.useSearchResult();
+  } else if (e.key === "ArrowUp") {
+    e.preventDefault();
+    navigateResults(-1); // Move up in results
+  } else if (e.key === "ArrowDown") {
+    e.preventDefault();
+    navigateResults(1); // Move down in results
   }
-}
+};
 
 // Navigate through search results
 const navigateResults = (direction) => {
-  const resultsLength = terminalStore.searchResults.length
-  if (resultsLength === 0) return
-  
-  let newIndex = terminalStore.selectedSearchResult + direction
-  
+  const resultsLength = terminalStore.searchResults.length;
+  if (resultsLength === 0) return;
+
+  let newIndex = terminalStore.selectedSearchResult + direction;
+
   // Wrap around for better UX
-  if (newIndex < 0) newIndex = resultsLength - 1
-  if (newIndex >= resultsLength) newIndex = 0
-  
-  terminalStore.selectedSearchResult = newIndex
-}
+  if (newIndex < 0) newIndex = resultsLength - 1;
+  if (newIndex >= resultsLength) newIndex = 0;
+
+  terminalStore.selectedSearchResult = newIndex;
+};
+
+const focusSearchInput = async () => {
+  await nextTick();
+  if (searchInputRef.value) {
+    searchInputRef.value.focus();
+  }
+};
+
+// Watch for search mode changes
+watch(
+  () => terminalStore.searchMode,
+  (isSearchMode) => {
+    if (isSearchMode) {
+      focusSearchInput();
+    } else {
+      // When search mode is closed, focus the command line
+      nextTick(() => {
+        terminalStore.focusInput();
+      });
+    }
+  }
+);
 
 // Update search when query changes
-watch(() => terminalStore.searchQuery, () => {
-  terminalStore.performHistorySearch()
-})
-
-// Focus input when component is mounted
-onMounted(() => {
-  if (searchInputRef.value) {
-    searchInputRef.value.focus()
+watch(
+  () => terminalStore.searchQuery,
+  () => {
+    terminalStore.performHistorySearch();
   }
-})
+);
+
+onMounted(() => {
+  if (terminalStore.searchMode) {
+    focusSearchInput();
+  }
+});
 
 // Cleanup event listeners when unmounted
 onBeforeUnmount(() => {
-  terminalStore.exitSearchMode()
-})
+  terminalStore.exitSearchMode();
+});
 </script>
 
 <template>
@@ -74,8 +98,14 @@ onBeforeUnmount(() => {
         <div
           v-for="(result, index) in terminalStore.searchResults"
           :key="index"
-          :class="['search-result', { selected: index === terminalStore.selectedSearchResult }]"
-          @click="terminalStore.selectedSearchResult = index; terminalStore.useSearchResult()"
+          :class="[
+            'search-result',
+            { selected: index === terminalStore.selectedSearchResult },
+          ]"
+          @click="
+            terminalStore.selectedSearchResult = index;
+            terminalStore.useSearchResult();
+          "
         >
           <span class="result-command">{{ result.command }}</span>
         </div>
@@ -84,7 +114,10 @@ onBeforeUnmount(() => {
         </div>
       </div>
       <div class="search-footer">
-        <span>Press <kbd>Enter</kbd> to use selected command, <kbd>Esc</kbd> to cancel</span>
+        <span
+          >Press <kbd>Enter</kbd> to use selected command, <kbd>Esc</kbd> to
+          cancel</span
+        >
       </div>
     </div>
   </div>
@@ -131,7 +164,7 @@ onBeforeUnmount(() => {
   background: #44475a;
   border: none;
   color: #f8f8f2;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: "JetBrains Mono", monospace;
   font-size: 14px;
   padding: 8px 10px;
   border-radius: 2px;
@@ -166,7 +199,7 @@ onBeforeUnmount(() => {
 
 .result-command {
   color: #f8f8f2;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: "JetBrains Mono", monospace;
 }
 
 .no-results {
@@ -188,7 +221,7 @@ kbd {
   border: 1px solid #6272a4;
   display: inline-block;
   font-size: 0.85em;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: "JetBrains Mono", monospace;
   padding: 2px 4px;
   margin: 0 2px;
 }
