@@ -24,6 +24,7 @@ const handleKeyDown = (e) => {
       if (inputRef.value) {
         inputRef.value.selectionStart = inputRef.value.value.length;
         inputRef.value.selectionEnd = inputRef.value.value.length;
+        terminalStore.updateCursorPosition(inputRef.value.value.length);
       }
     }, 0);
   } else if (e.key === "ArrowDown") {
@@ -35,21 +36,23 @@ const handleKeyDown = (e) => {
       if (inputRef.value) {
         inputRef.value.selectionStart = inputRef.value.value.length;
         inputRef.value.selectionEnd = inputRef.value.value.length;
+        terminalStore.updateCursorPosition(inputRef.value.value.length);
       }
     }, 0);
   } else if (e.key === "ArrowLeft") {
-    // Check if cursor is at the leftmost position
-    if (inputRef.value && inputRef.value.selectionStart === 0)
-      e.preventDefault(); // Prevent default behavior that would wrap to the end
-    // Update cursor position
-    setTimeout(() => {
-      terminalStore.updateCursorPosition(inputRef.value?.selectionStart || 0);
-    }, 0);
+    // Let the default behavior happen first
+    nextTick(() => {
+      if (inputRef.value) {
+        terminalStore.updateCursorPosition(inputRef.value.selectionStart);
+      }
+    });
   } else if (e.key === "ArrowRight") {
-    // Update cursor position
-    setTimeout(() => {
-      terminalStore.updateCursorPosition(inputRef.value?.selectionStart || 0);
-    }, 0);
+    // Let the default behavior happen first
+    nextTick(() => {
+      if (inputRef.value) {
+        terminalStore.updateCursorPosition(inputRef.value.selectionStart);
+      }
+    });
   } else if (e.key === "c" && e.ctrlKey) {
     e.preventDefault();
     terminalStore.currentCommand = "";
@@ -157,9 +160,7 @@ onUnmounted(() => {
         class="cursor-block"
         v-show="terminalStore.cursorVisible"
         :style="{
-          left:
-            (terminalStore.cursorPosition ||
-              terminalStore.currentCommand.length) + 'ch',
+          left: terminalStore.cursorPosition + 'ch',
         }"
       ></span>
     </div>

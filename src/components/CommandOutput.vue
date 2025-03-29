@@ -1,12 +1,10 @@
-<script setup>
-import { defineProps } from "vue";
+<script setup lang="ts">
+import type { CommandOutput } from "../data/commands";
+import AboutSection from "./AboutSection.vue";
 
-const props = defineProps({
-  output: {
-    type: Object,
-    required: true,
-  },
-});
+defineProps<{
+  output: CommandOutput;
+}>();
 </script>
 
 <template>
@@ -89,9 +87,8 @@ const props = defineProps({
       </div>
     </div>
 
-    <div v-else-if="output.type === 'about'" class="about-content">
-      <div class="section-title">About Me</div>
-      <div class="about-text" v-html="output.content"></div>
+    <div v-else-if="output.type === 'about'">
+      <AboutSection :content="output.content" />
     </div>
 
     <div v-else-if="output.type === 'contact'" class="contact-content">

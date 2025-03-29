@@ -169,23 +169,15 @@ export const useTerminalStore = defineStore("terminal", () => {
   }
 
   function handleCommand(cmd: string): void {
+    if (!cmd.trim()) return;
+
     const normalizedCmd = cmd.trim().toLowerCase();
-    if (!normalizedCmd) return;
 
     if (normalizedCmd === "clear") {
       history.value = [];
       currentCommand.value = "";
       historyIndex.value = -1;
       cursorPosition.value = 0;
-      return;
-    }
-
-    if (
-      normalizedCmd === "download" ||
-      normalizedCmd === "download cv" ||
-      normalizedCmd === "download resume"
-    ) {
-      downloadResume();
       return;
     }
 
