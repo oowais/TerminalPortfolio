@@ -65,31 +65,42 @@ export const useTerminalStore = defineStore("terminal", () => {
           type: "projects",
           content: portfolio.projects
             .map(
-              (project) => `<div class="project">
-              <h3>${project.name}</h3>
-              <p>${project.description}</p>
-              <div class="project-details">
-                <span class="project-detail">Team Size: ${
-                  project.teamSize
-                }</span>
-                <span class="project-detail">Duration: ${
-                  project.duration
-                }</span>
-              </div>
-              <span class="technologies">
-                ${project.technologies
-                  .map((tech) => `<span class="tech">${tech}</span>`)
-                  .join("")}
-              </span>
-              <div class="links">
-                <v-if="${project.github}" a href="${
-                project.github
-              }" target="_blank">GitHub</v-if=a>
-                <v-if="${project.live}" a href="${
-                project.live
-              }" target="_blank">Live Demo</v-if=>
-              </div>
-            </div>`
+              (project) => `<div class="project-card">
+                <div class="project-header">
+                  <h3 class="project-title">${project.name}</h3>
+                  <div class="project-meta">
+                    <span class="meta-item"><i class="fas fa-users"></i> ${
+                      project.teamSize
+                    } members</span>
+                    <span class="meta-item"><i class="fas fa-clock"></i> ${
+                      project.duration
+                    }</span>
+                  </div>
+                </div>
+                <div class="project-content">
+                  <p class="project-description">${project.description}</p>
+                  <div class="project-tech">
+                    <div class="tech-label">Technologies:</div>
+                    <div class="tech-tags">
+                      ${project.technologies
+                        .map((tech) => `<span class="tech-tag">${tech}</span>`)
+                        .join("")}
+                    </div>
+                  </div>
+                  <div class="project-links">
+                    <a href="${
+                      project.github
+                    }" target="_blank" class="project-link">
+                      <i class="fab fa-github"></i> GitHub
+                    </a>
+                    <a href="${
+                      project.live
+                    }" target="_blank" class="project-link">
+                      <i class="fas fa-external-link-alt"></i> Live Demo
+                    </a>
+                  </div>
+                </div>
+              </div>`
             )
             .join(""),
         };
