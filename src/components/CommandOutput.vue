@@ -1,81 +1,75 @@
 <script setup>
-import { defineProps } from 'vue'
+import { defineProps } from "vue";
 
 const props = defineProps({
   output: {
     type: Object,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 </script>
 
 <template>
-  <div 
-    class="command-output" 
-    :class="{ 
-      'error': output.type === 'error',
-      'success': output.type === 'success',
-      'projects': output.type === 'projects',
-      'skills': output.type === 'skills',
-      'experience': output.type === 'experience',
-      'about': output.type === 'about',
-      'contact': output.type === 'contact',
-      'help': output.type === 'help',
+  <div
+    class="command-output"
+    :class="{
+      error: output.type === 'error',
+      success: output.type === 'success',
+      projects: output.type === 'projects',
+      skills: output.type === 'skills',
+      experience: output.type === 'experience',
+      about: output.type === 'about',
+      contact: output.type === 'contact',
+      help: output.type === 'help',
       'easter-egg': output.type === 'easter-egg',
-      'history': output.type === 'history',
-      'system': output.type === 'system'
+      history: output.type === 'history',
+      system: output.type === 'system',
     }"
   >
     <div v-if="output.type === 'error'" class="error-message">
       <span class="prefix">Error: </span>
       <span v-html="output.content"></span>
     </div>
-    
+
     <div v-else-if="output.type === 'help'" class="help-content">
       <div class="help-header">Available commands:</div>
       <div class="help-commands">
-        <div v-for="(desc, cmd) in output.content" :key="cmd" class="help-command">
+        <div
+          v-for="(desc, cmd) in output.content"
+          :key="cmd"
+          class="help-command"
+        >
           <span class="command-name">{{ cmd }}</span>
           <span class="command-description">{{ desc }}</span>
         </div>
       </div>
     </div>
-    
+
     <div v-else-if="output.type === 'projects'" class="projects-content">
       <div class="section-title">My Projects</div>
-      <div v-for="(project, index) in output.content" :key="index" class="project-item">
-        <div class="project-header">
-          <div class="project-title">{{ project.name }}</div>
-          <div class="project-links">
-            <a v-if="project.github" :href="project.github" target="_blank" class="project-link">
-              <i class="fab fa-github"></i> GitHub
-            </a>
-            <a v-if="project.live" :href="project.live" target="_blank" class="project-link">
-              <i class="fas fa-external-link-alt"></i> Live
-            </a>
-          </div>
-        </div>
-        <div class="project-description">{{ project.description }}</div>
-        <div class="project-tech">
-          <span v-for="(tech, techIndex) in project.technologies" :key="techIndex" class="tech-tag">
-            {{ tech }}
-          </span>
-        </div>
-      </div>
+      <div v-html="output.content"></div>
     </div>
-    
+
     <div v-else-if="output.type === 'skills'" class="skills-content">
       <div class="section-title">My Skills</div>
-      <div v-for="(skills, category) in output.content" :key="category" class="skills-category">
+      <div
+        v-for="(skills, category) in output.content"
+        :key="category"
+        class="skills-category"
+      >
         <div class="category-name">{{ category }}</div>
         <div class="skills-list">
-          <span v-for="(skill, index) in skills" :key="index" class="skill-item">
+          <span
+            v-for="(skill, index) in skills"
+            :key="index"
+            class="skill-item"
+          >
             {{ skill }}
           </span>
         </div>
       </div>
     </div>
-    
+
     <div v-else-if="output.type === 'experience'" class="experience-content">
       <div class="section-title">Work Experience</div>
       <div v-for="(job, index) in output.content" :key="index" class="job-item">
@@ -85,32 +79,49 @@ const props = defineProps({
         </div>
         <div class="job-description">{{ job.description }}</div>
         <ul class="job-responsibilities">
-          <li v-for="(responsibility, rIndex) in job.responsibilities" :key="rIndex">
+          <li
+            v-for="(responsibility, rIndex) in job.responsibilities"
+            :key="rIndex"
+          >
             {{ responsibility }}
           </li>
         </ul>
       </div>
     </div>
-    
+
     <div v-else-if="output.type === 'about'" class="about-content">
       <div class="section-title">About Me</div>
       <div class="about-text" v-html="output.content"></div>
     </div>
-    
+
     <div v-else-if="output.type === 'contact'" class="contact-content">
       <div class="section-title">Contact Information</div>
       <div class="contact-items">
-        <div v-for="(value, key) in output.content" :key="key" class="contact-item">
+        <div
+          v-for="(value, key) in output.content"
+          :key="key"
+          class="contact-item"
+        >
           <span class="contact-label">{{ key }}:</span>
           <span v-if="key === 'Email'" class="contact-value">
             <a :href="`mailto:${value}`">{{ value }}</a>
           </span>
-          <span v-else-if="key === 'LinkedIn' || key === 'GitHub' || key === 'Twitter'" class="contact-value">
+          <span
+            v-else-if="
+              key === 'LinkedIn' || key === 'GitHub' || key === 'Twitter'
+            "
+            class="contact-value"
+          >
             <a :href="value" target="_blank">{{ value }}</a>
           </span>
           <span v-else class="contact-value">{{ value }}</span>
         </div>
       </div>
+    </div>
+
+    <div v-else-if="output.type === 'education'" class="education-content">
+      <div class="section-title">Education</div>
+      <div v-html="output.content"></div>
     </div>
 
     <div v-else v-html="output.content"></div>
@@ -317,24 +328,38 @@ const props = defineProps({
 }
 
 @keyframes colorCycle {
-  0% { color: #ff5555; }
-  25% { color: #f1fa8c; }
-  50% { color: #50fa7b; }
-  75% { color: #bd93f9; }
-  100% { color: #ff5555; }
+  0% {
+    color: #ff5555;
+  }
+  25% {
+    color: #f1fa8c;
+  }
+  50% {
+    color: #50fa7b;
+  }
+  75% {
+    color: #bd93f9;
+  }
+  100% {
+    color: #ff5555;
+  }
 }
 
 @media (max-width: 768px) {
-  .help-commands, .project-header, .job-header {
+  .help-commands,
+  .project-header,
+  .job-header {
     grid-template-columns: 1fr;
   }
-  
-  .project-header, .job-header {
+
+  .project-header,
+  .job-header {
     flex-direction: column;
     align-items: flex-start;
   }
-  
-  .project-links, .job-period {
+
+  .project-links,
+  .job-period {
     margin-top: 5px;
   }
 }

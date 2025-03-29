@@ -65,8 +65,7 @@ export const useTerminalStore = defineStore("terminal", () => {
           type: "projects",
           content: portfolio.projects
             .map(
-              (project) => `
-            <div class="project">
+              (project) => `<div class="project">
               <h3>${project.name}</h3>
               <p>${project.description}</p>
               <div class="technologies">
@@ -78,8 +77,7 @@ export const useTerminalStore = defineStore("terminal", () => {
                 <a href="${project.github}" target="_blank">GitHub</a>
                 <a href="${project.live}" target="_blank">Live Demo</a>
               </div>
-            </div>
-          `
+            </div>`
             )
             .join(""),
         };
@@ -96,7 +94,16 @@ export const useTerminalStore = defineStore("terminal", () => {
       case "education":
         return {
           type: "education",
-          content: portfolio.education,
+          content: portfolio.education
+            .map(
+              (edu) => `<div class="education-item">
+              <h3>${edu.degree}</h3>
+              <div class="education-institution">${edu.institution}</div>
+              <div class="education-duration">${edu.duration}</div>
+              <div class="education-description">${edu.description}</div>
+            </div>`
+            )
+            .join(""),
         };
       case "contact":
         return {
@@ -106,12 +113,25 @@ export const useTerminalStore = defineStore("terminal", () => {
       case "social":
         return {
           type: "success",
-          content: portfolio.social,
+          content: portfolio.social
+            .map(
+              (social) => `<div class="social-link">
+              <a href="${social.url}" target="_blank">
+                <i class="${social.icon}"></i> ${social.name}
+              </a>
+            </div>`
+            )
+            .join(""),
         };
       case "clear":
         return {
           type: "system",
           content: "",
+        };
+      case "ls":
+        return {
+          type: "success",
+          content: `<div class="ls-output"><div class="file">about.txt</div><div class="file">projects.txt</div><div class="file">skills.txt</div><div class="file">experience.txt</div><div class="file">education.txt</div><div class="file">contact.txt</div><div class="file">resume.pdf</div></div>`,
         };
       default:
         if (cmd.startsWith("cat "))
@@ -182,12 +202,18 @@ export const useTerminalStore = defineStore("terminal", () => {
   }
 
   function downloadResume(): void {
-    const link = document.createElement("a");
-    link.href = "/src/assets/resume.pdf";
-    link.download = `${portfolio.name.replace(/\s+/g, "_")}_Resume.pdf`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    history.value.push({
+      command: "download",
+      output: {
+        type: "success",
+        content:
+          "Resume download feature is under implementation and will be added later.",
+      },
+    });
+    currentCommand.value = "";
+    historyIndex.value = -1;
+    cursorPosition.value = 0;
+    startCursorBlink();
   }
 
   // History navigation
@@ -210,6 +236,14 @@ export const useTerminalStore = defineStore("terminal", () => {
         currentCommand.value = "";
       }
     }
+  }
+
+  // Handle Ctrl+C
+  function handleCtrlC(): void {
+    currentCommand.value = "";
+    historyIndex.value = -1;
+    cursorPosition.value = 0;
+    startCursorBlink();
   }
 
   // Tab completion
@@ -274,6 +308,12 @@ export const useTerminalStore = defineStore("terminal", () => {
     startCursorBlink();
   }
 
+  function closeHistory(): void {
+    if (searchMode.value) {
+      exitSearchMode();
+    }
+  }
+
   function useSearchResult(): void {
     if (
       selectedSearchResult.value >= 0 &&
@@ -329,5 +369,7 @@ export const useTerminalStore = defineStore("terminal", () => {
     performHistorySearch,
     exitSearchMode,
     useSearchResult,
+    handleCtrlC,
+    closeHistory,
   };
 });

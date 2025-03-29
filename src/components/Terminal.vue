@@ -44,6 +44,8 @@ const handleGlobalKeyDown = (e) => {
   if (e.key === "l" && e.ctrlKey) {
     e.preventDefault();
     terminalStore.executeCommand("clear");
+  } else if (e.key === "Escape") {
+    terminalStore.closeHistory();
   }
 };
 

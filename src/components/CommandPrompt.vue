@@ -17,7 +17,7 @@ const handleKeyDown = (e) => {
     window.dispatchEvent(new CustomEvent("command-executed"));
   } else if (e.key === "ArrowUp") {
     e.preventDefault();
-    terminalStore.navigateHistory(-1);
+    terminalStore.navigateHistory("up");
 
     // After getting a command from history, move cursor to the end
     setTimeout(() => {
@@ -28,7 +28,7 @@ const handleKeyDown = (e) => {
     }, 0);
   } else if (e.key === "ArrowDown") {
     e.preventDefault();
-    terminalStore.navigateHistory(1);
+    terminalStore.navigateHistory("down");
 
     // After getting a command from history, move cursor to the end
     setTimeout(() => {
@@ -46,18 +46,14 @@ const handleKeyDown = (e) => {
       terminalStore.updateCursorPosition(inputRef.value?.selectionStart || 0);
     }, 0);
   } else if (e.key === "ArrowRight") {
-    // Let the default behavior happen for right navigation
-    // and update the cursor position
+    // Update cursor position
     setTimeout(() => {
       terminalStore.updateCursorPosition(inputRef.value?.selectionStart || 0);
     }, 0);
   } else if (e.key === "c" && e.ctrlKey) {
     e.preventDefault();
-    // Clear current command
     terminalStore.currentCommand = "";
-    terminalStore.updateCursorPosition(0);
-    // Add ^C to command history as feedback
-    terminalStore.addToHistory("^C", { type: "system", content: "" });
+    terminalStore.cursorPosition = 0;
   } else if (e.key === "r" && e.ctrlKey) {
     e.preventDefault();
     // Start history search - open search mode or search current command

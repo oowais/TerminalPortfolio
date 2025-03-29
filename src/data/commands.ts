@@ -36,7 +36,5 @@ export const availableCommands: Record<string, string> = {
   ls: "List files and directories",
   cat: "Display file contents",
   download: "Download resume",
-  welcome: "Show welcome message",
   social: "Display social media links",
-  theme: "Change terminal theme",
 };
