@@ -12,11 +12,9 @@ const handleKeyDown = (e) => {
   if (e.key === "Enter") {
     e.preventDefault();
     const command = terminalStore.currentCommand.trim();
-    if (command) {
-      terminalStore.executeCommand(command);
-      // Emit a custom event that Terminal.vue can listen for
-      window.dispatchEvent(new CustomEvent("command-executed"));
-    }
+    terminalStore.handleCommand(command);
+    // Emit a custom event that Terminal.vue can listen for
+    window.dispatchEvent(new CustomEvent("command-executed"));
   } else if (e.key === "ArrowUp") {
     e.preventDefault();
     terminalStore.navigateHistory(-1);
@@ -41,9 +39,8 @@ const handleKeyDown = (e) => {
     }, 0);
   } else if (e.key === "ArrowLeft") {
     // Check if cursor is at the leftmost position
-    if (inputRef.value && inputRef.value.selectionStart === 0) {
+    if (inputRef.value && inputRef.value.selectionStart === 0)
       e.preventDefault(); // Prevent default behavior that would wrap to the end
-    }
     // Update cursor position
     setTimeout(() => {
       terminalStore.updateCursorPosition(inputRef.value?.selectionStart || 0);
@@ -59,7 +56,6 @@ const handleKeyDown = (e) => {
     // Clear current command
     terminalStore.currentCommand = "";
     terminalStore.updateCursorPosition(0);
-
     // Add ^C to command history as feedback
     terminalStore.addToHistory("^C", { type: "system", content: "" });
   } else if (e.key === "r" && e.ctrlKey) {
