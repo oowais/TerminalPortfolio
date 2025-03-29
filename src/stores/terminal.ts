@@ -68,14 +68,26 @@ export const useTerminalStore = defineStore("terminal", () => {
               (project) => `<div class="project">
               <h3>${project.name}</h3>
               <p>${project.description}</p>
-              <div class="technologies">
+              <div class="project-details">
+                <span class="project-detail">Team Size: ${
+                  project.teamSize
+                }</span>
+                <span class="project-detail">Duration: ${
+                  project.duration
+                }</span>
+              </div>
+              <span class="technologies">
                 ${project.technologies
                   .map((tech) => `<span class="tech">${tech}</span>`)
                   .join("")}
-              </div>
+              </span>
               <div class="links">
-                <a href="${project.github}" target="_blank">GitHub</a>
-                <a href="${project.live}" target="_blank">Live Demo</a>
+                <v-if="${project.github}" a href="${
+                project.github
+              }" target="_blank">GitHub</v-if=a>
+                <v-if="${project.live}" a href="${
+                project.live
+              }" target="_blank">Live Demo</v-if=>
               </div>
             </div>`
             )

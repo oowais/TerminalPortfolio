@@ -95,6 +95,20 @@
   font-size: 16px;
 }
 
+.project-details {
+  display: flex;
+  gap: 15px;
+  margin: 8px 0;
+  color: #ffb86c;
+}
+
+.project-detail {
+  font-size: 13px;
+  background-color: #44475a;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
 .project-link {
   color: #50fa7b;
   text-decoration: none;

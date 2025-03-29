@@ -4,6 +4,8 @@ export interface Project {
   technologies: string[];
   github: string;
   live: string;
+  teamSize: number;
+  duration: string;
 }
 
 export interface Contact {
@@ -61,6 +63,8 @@ export const portfolio: Portfolio = {
       technologies: ["React", "Node.js", "Express", "MongoDB", "Stripe API"],
       github: "https://github.com/username/ecommerce-platform",
       live: "https://ecommerce-platform-demo.com",
+      teamSize: 5,
+      duration: "6 months",
     },
     {
       name: "Task Management App",
@@ -69,6 +73,8 @@ export const portfolio: Portfolio = {
       technologies: ["Vue.js", "Vuex", "Firebase", "Tailwind CSS"],
       github: "https://github.com/username/task-manager",
       live: "https://task-manager-demo.com",
+      teamSize: 3,
+      duration: "4 months",
     },
     {
       name: "Weather Dashboard",
@@ -77,6 +83,8 @@ export const portfolio: Portfolio = {
       technologies: ["JavaScript", "Chart.js", "OpenWeather API", "HTML/CSS"],
       github: "https://github.com/username/weather-dashboard",
       live: "https://weather-dashboard-demo.com",
+      teamSize: 1,
+      duration: "2 months",
     },
     {
       name: "Social Media Analytics Tool",
@@ -91,6 +99,8 @@ export const portfolio: Portfolio = {
       ],
       github: "https://github.com/username/social-analytics",
       live: "https://social-analytics-demo.com",
+      teamSize: 4,
+      duration: "5 months",
     },
   ],
 
