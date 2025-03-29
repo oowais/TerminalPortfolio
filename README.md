@@ -1,27 +1,41 @@
 # Terminal Portfolio
 
-A modern, interactive portfolio website with a terminal-like interface built using Vue 3.5 and Vite.
+A modern, interactive terminal-themed portfolio website that simulates a command-line interface. Built with Vue 3 and TypeScript, this portfolio showcases my projects and skills in a unique, engaging way.
 
-## 🚀 Features
+## 🌟 Features
 
-- Terminal-style interface for a unique user experience
-- Interactive command-line interface
-- Modern Vue 3.5 implementation
-- Fast development with Vite
+- **Terminal Interface**: Authentic terminal-like experience with:
+  - Command history navigation
+  - Tab completion
+  - Custom command parsing
+  - Typing effect animations
+- **Interactive Commands**:
+  - `help`: List all available commands
+  - `about`: Display information about me
+  - `projects`: View my project showcase
+  - `skills`: List technical skills
+  - `contact`: Show contact information
+  - `clear`: Clear the terminal screen
+- **Modern Tech Stack**: Built with Vue 3, TypeScript, and Vite
+- **Responsive Design**: Works seamlessly on desktop and mobile devices
+- **Dark Mode**: Terminal-inspired dark theme for better readability
 
 ## 🛠️ Tech Stack
 
-- Vue 3.5
-- Vite
-- Modern JavaScript/TypeScript
+- **Frontend Framework**: Vue 3 with Composition API
+- **Build Tool**: Vite
+- **Language**: TypeScript
+- **Styling**: CSS with custom terminal theme
+- **Icons**: Font Awesome
+- **Font**: JetBrains Mono (perfect for terminal aesthetics)
 
 ## 📦 Installation
 
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/TerminalPortfolio.git
-cd TerminalPortfolio
+git clone https://github.com/oowais/TerminalProtfolio.git
+cd TerminalProtfolio
 ```
 
 2. Install dependencies:
@@ -32,23 +46,23 @@ npm install
 
 ## 🚀 Development
 
-To start the development server:
+Start the development server:
 
 ```bash
 npm run dev
 ```
 
-This will start the Vite development server with hot module replacement.
+The development server will start with hot module replacement enabled.
 
 ## 🏗️ Building for Production
 
-To create a production build:
+Create a production build:
 
 ```bash
 npm run build
 ```
 
-To preview the production build locally:
+Preview the production build locally:
 
 ```bash
 npm run preview
@@ -57,27 +71,46 @@ npm run preview
 ## 📁 Project Structure
 
 ```
-TerminalPortfolio/
-├── src/           # Source files
-├── dist/          # Production build output
-├── public/        # Static assets
-├── index.html     # Entry HTML file
-├── vite.config.js # Vite configuration
-└── package.json   # Project dependencies and scripts
+TerminalProtfolio/
+├── src/                    # Source files
+│   ├── components/        # Vue components
+│   ├── composables/       # Vue composables
+│   ├── assets/           # Static assets
+│   ├── data/             # Portfolio data
+│   └── stores/           # State management
+├── public/                # Public static assets
+│   └── favicon/          # Multi-resolution favicons
+├── index.html            # Entry HTML file
+├── vite.config.ts        # Vite configuration
+└── package.json          # Project dependencies and scripts
 ```
+
+## 🔧 Configuration
+
+The portfolio content can be customized by modifying the following files:
+
+- `src/data/portfolio.ts`: Personal information and content
+- `src/data/commands.ts`: Available terminal commands
+- `src/assets/styles/terminal.css`: Terminal appearance
 
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'feat: add some amazing feature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
 ## 📄 License
 
-This project is licensed under the ISC License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## 👤 Author
 
-[Your Name]
+Owais
 
 ---
 
-Made with ❤️ using Vue 3.5 and Vite
+Made with ❤️ using Vue 3 and TypeScript
