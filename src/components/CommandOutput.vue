@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { CommandOutput } from "../data/commands";
 import AboutSection from "./AboutSection.vue";
+import ProjectCard from "./ProjectCard.vue";
 
 defineProps<{
   output: CommandOutput;
@@ -45,7 +46,13 @@ defineProps<{
 
     <div v-else-if="output.type === 'projects'" class="projects-content">
       <div class="section-title">My Projects</div>
-      <div v-html="output.content"></div>
+      <div class="projects-grid">
+        <ProjectCard
+          v-for="project in output.content"
+          :key="project.name"
+          :project="project"
+        />
+      </div>
     </div>
 
     <div v-else-if="output.type === 'skills'" class="skills-content">
@@ -359,5 +366,19 @@ defineProps<{
   .job-period {
     margin-top: 5px;
   }
+}
+</style>
+
+<style scoped>
+.command-output {
+  margin: 0.5rem 0;
+  line-height: 1.5;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
 }
 </style>

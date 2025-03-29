@@ -48,8 +48,14 @@ export const useTerminalStore = defineStore("terminal", () => {
   // Command execution
   function executeCommand(cmd: string): CommandOutput {
     const baseCmd = cmd.split(" ")[0];
+    const args = cmd.split(" ").slice(1);
 
     switch (baseCmd) {
+      case "":
+        return {
+          type: "system",
+          content: "",
+        };
       case "help":
         return {
           type: "help",
@@ -63,46 +69,7 @@ export const useTerminalStore = defineStore("terminal", () => {
       case "projects":
         return {
           type: "projects",
-          content: portfolio.projects
-            .map(
-              (project) => `<div class="project-card">
-                <div class="project-header">
-                  <h3 class="project-title">${project.name}</h3>
-                  <div class="project-meta">
-                    <span class="meta-item"><i class="fas fa-users"></i> ${
-                      project.teamSize
-                    } members</span>
-                    <span class="meta-item"><i class="fas fa-clock"></i> ${
-                      project.duration
-                    }</span>
-                  </div>
-                </div>
-                <div class="project-content">
-                  <p class="project-description">${project.description}</p>
-                  <div class="project-tech">
-                    <div class="tech-label">Technologies:</div>
-                    <div class="tech-tags">
-                      ${project.technologies
-                        .map((tech) => `<span class="tech-tag">${tech}</span>`)
-                        .join("")}
-                    </div>
-                  </div>
-                  <div class="project-links">
-                    <a href="${
-                      project.github
-                    }" target="_blank" class="project-link">
-                      <i class="fab fa-github"></i> GitHub
-                    </a>
-                    <a href="${
-                      project.live
-                    }" target="_blank" class="project-link">
-                      <i class="fas fa-external-link-alt"></i> Live Demo
-                    </a>
-                  </div>
-                </div>
-              </div>`
-            )
-            .join(""),
+          content: portfolio.projects,
         };
       case "skills":
         return {
@@ -192,8 +159,6 @@ export const useTerminalStore = defineStore("terminal", () => {
   }
 
   function handleCommand(cmd: string): void {
-    if (!cmd.trim()) return;
-
     const normalizedCmd = cmd.trim().toLowerCase();
 
     if (normalizedCmd === "clear") {

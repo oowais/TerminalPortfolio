@@ -1,4 +1,4 @@
-import { Experience, Education, Contact, Social } from "./portfolio";
+import { Experience, Education, Contact, Social, Project } from "./portfolio";
 
 export interface CommandOutput {
   type:
@@ -21,7 +21,8 @@ export interface CommandOutput {
     | Experience[]
     | Education[]
     | Contact
-    | Social[];
+    | Social[]
+    | Project[];
 }
 
 export const availableCommands: Record<string, string> = {

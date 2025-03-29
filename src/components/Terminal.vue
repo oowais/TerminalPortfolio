@@ -3,6 +3,7 @@ import { ref, onMounted, onUnmounted, watch, nextTick } from "vue";
 import CommandPrompt from "./CommandPrompt.vue";
 import CommandOutput from "./CommandOutput.vue";
 import CommandHistory from "./CommandHistory.vue";
+import ProjectCard from "./ProjectCard.vue";
 import { useTerminalStore } from "../stores/terminal";
 import { availableCommands } from "../data/commands";
 
