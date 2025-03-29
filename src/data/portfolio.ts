@@ -1,4 +1,4 @@
-interface Project {
+export interface Project {
   name: string;
   description: string;
   technologies: string[];
@@ -6,26 +6,26 @@ interface Project {
   live: string;
 }
 
-interface Contact {
+export interface Contact {
   email: string;
   phone: string;
   location: string;
 }
 
-interface Social {
+export interface Social {
   name: string;
   url: string;
   icon: string;
 }
 
-interface Education {
+export interface Education {
   degree: string;
   institution: string;
   duration: string;
   description?: string;
 }
 
-interface Experience {
+export interface Experience {
   position: string;
   company: string;
   duration: string;

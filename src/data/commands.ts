@@ -1,4 +1,4 @@
-import { portfolio } from "./portfolio";
+import { Experience, Education, Contact, Social } from "./portfolio";
 
 export interface CommandOutput {
   type:
@@ -12,8 +12,16 @@ export interface CommandOutput {
     | "help"
     | "easter-egg"
     | "history"
-    | "system";
-  content: string | Record<string, string>;
+    | "system"
+    | "education";
+  content:
+    | string
+    | Record<string, string>
+    | Record<string, string[]>
+    | Experience[]
+    | Education[]
+    | Contact
+    | Social[];
 }
 
 export const availableCommands: Record<string, string> = {
