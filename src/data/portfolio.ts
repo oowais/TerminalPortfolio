@@ -1,3 +1,5 @@
+import { calculateExperience } from "@/helper/helper";
+
 export interface Project {
   name: string;
   description: string;
@@ -164,7 +166,7 @@ export const portfolio: Portfolio = {
     {
       position: "Frontend Developer",
       company: "Einhundert Energie GmbH",
-      duration: "Dec 2021 - Present",
+      duration: `Dec 2021 - Present (${calculateExperience()})`,
       website: "https://einhundert.de/",
       responsibilities: [
         "Lead development of enterprise web applications",
@@ -181,7 +183,7 @@ export const portfolio: Portfolio = {
     {
       position: "Student Research Scientist",
       company: "Fraunhofer FKI",
-      duration: "Sep 2018 - Sep 2021",
+      duration: "Sep 2018 - Sep 2021 (3 years)",
       website: "https://fki.fraunhofer.de/",
       responsibilities: [
         "Created and delivered UI services for demo purposes",
@@ -195,7 +197,7 @@ export const portfolio: Portfolio = {
     {
       position: "Systems Engineer",
       company: "Tata Consultancy Services",
-      duration: "Aug 2014 - Oct 2017",
+      duration: "Aug 2014 - Oct 2017 (3 years 3 months)",
       website: "https://www.tcs.com/",
       responsibilities: [
         "Ericsson Network Manager(ENM): ENM is a collection of virtual management tools based on a single software platform designed to provide unified network management capability across Radio access, Transport, and Core networks",
@@ -212,7 +214,7 @@ export const portfolio: Portfolio = {
     {
       position: "Computer Engineer (Trainee)",
       company: "Dion Global Solutions",
-      duration: "May 2013 - Jun 2013",
+      duration: "May 2013 - Jun 2013 (2 months)",
       website: "https://www.dionglobal.com/",
       responsibilities: [
         "Aided in analyzing and migrating the code from Java SE 5 to 6",
@@ -226,14 +228,14 @@ export const portfolio: Portfolio = {
     {
       degree: "Master of Science in Media Informatics",
       institution: "RWTH Aachen University",
-      duration: "2018 - 2021",
+      duration: "Oct 2017 - Sep 2021",
       description: "Grade: 1.8 (German scale)",
       website: "https://www.rwth-aachen.de/",
     },
     {
       degree: "Bachelor of Technology in Computer Engineering",
       institution: "Faculty of Engineering & Technology, Jamia Millia Islamia",
-      duration: "2009 - 2013",
+      duration: "2010 - 2014",
       description: "Grade: 7.9/10 (CGPA)",
       website: "https://www.jmi.ac.in/fet",
     },

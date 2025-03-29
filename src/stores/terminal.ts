@@ -84,16 +84,7 @@ export const useTerminalStore = defineStore("terminal", () => {
       case "education":
         return {
           type: "education",
-          content: portfolio.education
-            .map(
-              (edu) => `<div class="education-item">
-              <h3>${edu.degree}</h3>
-              <div class="education-institution">${edu.institution}</div>
-              <div class="education-duration">${edu.duration}</div>
-              <div class="education-description">${edu.description}</div>
-            </div>`
-            )
-            .join(""),
+          content: portfolio.education,
         };
       case "contact":
         return {
