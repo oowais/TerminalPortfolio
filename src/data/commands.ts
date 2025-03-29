@@ -1,6 +1,6 @@
 import { portfolio } from "./portfolio";
 
-interface CommandOutput {
+export interface CommandOutput {
   type:
     | "success"
     | "error"
@@ -32,69 +32,3 @@ export const availableCommands: Record<string, string> = {
   social: "Display social media links",
   theme: "Change terminal theme",
 };
-
-export function executeCommand(cmd: string, baseCmd: string): CommandOutput {
-  switch (baseCmd) {
-    case "help":
-      return {
-        type: "help",
-        content: availableCommands,
-      };
-    case "about":
-      return {
-        type: "about",
-        content: portfolio.about,
-      };
-    case "projects":
-      return {
-        type: "projects",
-        content: portfolio.projects
-          .map(
-            (project) => `
-          <div class="project">
-            <h3>${project.name}</h3>
-            <p>${project.description}</p>
-            <div class="technologies">
-              ${project.technologies
-                .map((tech) => `<span class="tech">${tech}</span>`)
-                .join("")}
-            </div>
-            <div class="links">
-              <a href="${project.github}" target="_blank">GitHub</a>
-              <a href="${project.live}" target="_blank">Live Demo</a>
-            </div>
-          </div>
-        `
-          )
-          .join(""),
-      };
-    case "clear":
-      return {
-        type: "system",
-        content: "",
-      };
-    case "welcome":
-      return {
-        type: "success",
-        content: `
-          <div class="welcome-message">
-            <pre class="ascii-art">
-   ___         _   __      _ _       
-  / _ \\___  __| |_/ _|___ | (_)___   
- / /_)/ _ \\/ _\` | |  _/ _ \\| | / _ \\ 
-/ ___/  __/ (_| | | || (_) | | | (_) |
-\\/    \\___|\\__,_|_|_| \\___/|_|_|\\___/ 
-                                      
-            </pre>
-            <p>Welcome to my interactive terminal portfolio!</p>
-            <p>Type <span class="cmd-highlight">help</span> to see available commands.</p>
-          </div>
-        `,
-      };
-    default:
-      return {
-        type: "error",
-        content: `Command '${cmd}' not found. Type 'help' to see available commands.`,
-      };
-  }
-}
