@@ -1,5 +1,9 @@
 import { Experience, Education, Contact, Social, Project } from "./portfolio";
 
+interface ContactWithSocials extends Contact {
+  socials: Social[];
+}
+
 export interface CommandOutput {
   type:
     | "success"
@@ -20,7 +24,7 @@ export interface CommandOutput {
     | Record<string, string[]>
     | Experience[]
     | Education[]
-    | Contact
+    | ContactWithSocials
     | Social[]
     | Project[];
 }
@@ -36,6 +40,5 @@ export const availableCommands: Record<string, string> = {
   clear: "Clear the terminal",
   ls: "List files and directories",
   cat: "Display file contents",
-  download: "Download resume",
-  social: "Display social media links",
+  // download: "Download resume",
 };

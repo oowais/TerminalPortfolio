@@ -112,24 +112,32 @@ defineProps<{
     <div v-else-if="output.type === 'contact'" class="contact-content">
       <div class="section-title">Contact Information</div>
       <div class="contact-items">
-        <div
-          v-for="(value, key) in output.content"
-          :key="key"
-          class="contact-item"
-        >
-          <span class="contact-label">{{ key }}:</span>
-          <span v-if="key === 'Email'" class="contact-value">
-            <a :href="`mailto:${value}`">{{ value }}</a>
+        <div class="contact-item">
+          <span class="contact-label">Email:</span>
+          <span class="contact-value">
+            <a :href="`mailto:${output.content.email}`">{{
+              output.content.email
+            }}</a>
           </span>
-          <span
-            v-else-if="
-              key === 'LinkedIn' || key === 'GitHub' || key === 'Twitter'
-            "
-            class="contact-value"
+        </div>
+        <div class="contact-item">
+          <span class="contact-label">Location:</span>
+          <span class="contact-value">{{ output.content.location }}</span>
+        </div>
+      </div>
+      <div class="social-links">
+        <div class="section-subtitle">Social Links</div>
+        <div class="social-items">
+          <a
+            v-for="social in output.content.socials"
+            :key="social.name"
+            :href="social.url"
+            target="_blank"
+            class="social-link"
           >
-            <a :href="value" target="_blank">{{ value }}</a>
-          </span>
-          <span v-else class="contact-value">{{ value }}</span>
+            <i :class="social.icon"></i>
+            {{ social.name }}
+          </a>
         </div>
       </div>
     </div>
@@ -486,5 +494,64 @@ defineProps<{
 .education-description {
   color: #ddd;
   line-height: 1.5;
+}
+
+.contact-content {
+  margin-top: 1rem;
+}
+
+.contact-items {
+  margin-bottom: 1.5rem;
+}
+
+.contact-item {
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.contact-label {
+  color: #888;
+  min-width: 80px;
+}
+
+.contact-value a {
+  color: #00ff00;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.contact-value a:hover {
+  color: #00cc00;
+}
+
+.section-subtitle {
+  color: #888;
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+}
+
+.social-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.social-link {
+  color: #00ff00;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.3s ease;
+  padding: 0.5rem;
+  border-radius: 4px;
+  background: rgba(0, 255, 0, 0.1);
+}
+
+.social-link:hover {
+  color: #00cc00;
+  background: rgba(0, 255, 0, 0.15);
 }
 </style>

@@ -89,20 +89,10 @@ export const useTerminalStore = defineStore("terminal", () => {
       case "contact":
         return {
           type: "contact",
-          content: portfolio.contact,
-        };
-      case "social":
-        return {
-          type: "success",
-          content: portfolio.social
-            .map(
-              (social) => `<div class="social-link">
-              <a href="${social.url}" target="_blank">
-                <i class="${social.icon}"></i> ${social.name}
-              </a>
-            </div>`
-            )
-            .join(""),
+          content: {
+            ...portfolio.contact,
+            socials: portfolio.social,
+          },
         };
       case "clear":
         return {
