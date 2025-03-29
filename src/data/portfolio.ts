@@ -63,7 +63,14 @@ export const portfolio: Portfolio = {
       name: "Jaadu - An Alien in a Terrarium",
       description:
         "Jaadu is an alien in the FabTerrarium, an open space with different animals/plants interacting with their environment or external users. It crawls in the terrarium reading the emotions of the other entities and displaying those emotions in itself. The materialization of Jaadu is a combination of Arduino, RasPI, 3D Modelling, Sensors, comm modes and LEDs.",
-      technologies: ["Python", "C++", "3D Modelling", "Arduino", "RasPI"],
+      technologies: [
+        "Python",
+        "C++",
+        "3D Modelling",
+        "Arduino",
+        "RasPI",
+        "Blender",
+      ],
       github: "https://github.com/oowais/Jaadu",
       live: "https://oowais.github.io/Jaadu/",
       teamSize: 3,
@@ -254,7 +261,7 @@ export const portfolio: Portfolio = {
     },
     {
       name: "LinkedIn",
-      url: "https://www.linkedin.com/in/owaisahmed92/",
+      url: "https://www.linkedin.com/in/oowais7/",
       icon: "fa-linkedin",
     },
   ],
